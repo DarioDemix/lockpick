@@ -1,0 +1,52 @@
+<div class="contenitoreComponente">
+	<div *ngIf="risultati" class="contenitoreElementi">
+		<h2>Risultati ricerca</h2>
+		<div class="spazioElementi" *ngFor="let prodotto of risultati">
+			
+			<table class="contenitoreDettaglioRisultato">
+				<tr>
+					<td class="contenitoreFotoRisultato">
+						<a routerLink="/dettaglio/{{prodotto.idCatalogo}}"> 
+							<img src="data:image/png;base64,{{prodotto.img}}" class="fotoLabel">
+						</a>						
+					</td>
+					<td class="dettaglioRisultato">
+							<b class="nomeProdotto" (click)="dettaglio(prodotto.idCatalogo)">{{prodotto.nomeProdotto}}</b>
+						<h4>€{{prodotto.prezzoProdotto}}</h4>
+					</td>
+				</tr>
+			</table>
+
+			<hr>
+		</div>
+		<div *ngIf="!finished">
+			<mat-spinner></mat-spinner>
+		</div>
+	</div>
+
+	<div *ngIf="primiProdotti"  style="width: 60%; text-align: center"
+								infiniteScroll
+								[infiniteScrollDistance]="200"
+								[infiniteScrollThrottle]="2000"
+								(scrolled)="onScroll()">
+	</div>
+
+	<br />
+
+	<div *ngIf="finished && risultati">
+
+		<button mat-raised-button color="accent" (click)="topFunction()">Torna su</button>
+
+	</div>
+
+	<br />
+	<div *ngIf="!risultati">
+		<h3>Nessun prodotto trovato!</h3>
+	</div>
+	<div class="bottone indietro">
+			<button mat-raised-button color="accent"
+					routerLink="../homepage">
+				Homepage
+			</button>
+		</div>
+</div>

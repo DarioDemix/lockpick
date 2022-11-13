@@ -1,0 +1,105 @@
+<div class="contenitoreComponente" style="width: 90%;display: grid" *ngIf="prodotto; else elseBlock">
+	<div class="contenitoreElementi">
+		<h2>Dettaglio prodotto</h2>
+		<div class="spazioElementi">
+			<table class="tabellaImmagineAnagrafica">
+				<tr>
+					<td style="min-width: 40%; max-width: 40%; height: unset;">
+						<img src="data:image/png;base64,{{prodotto.img}}"
+							class="fotoProdottoDettaglio">
+					</td>
+
+					<td style="width: 60%; height: unset;padding: 20px">
+						<div class="anagraficaProdotto">
+							<div class="nome-prezzo">
+				
+								<table style="width: 100%; height: 100%">
+									<tr>
+										<td> <b>Nome:</b> </td>
+										<td>{{prodotto.nomeProdotto}}</td>
+									</tr>
+									<tr>
+										<td> <b>Prezzo:</b> </td>
+										<td>{{prodotto.prezzoProdotto | number:'1.2-5'}}€</td>
+									</tr>
+								</table>
+				
+							</div>
+							<hr>
+							<div class="acquisto">
+				
+								<table style="width: 100%; height: 100%">
+									<tr>
+										<td> <b>Quantità</b> </td>
+										<td>
+											<mat-form-field class="scegliQta">
+												<input matInput
+														#scegliQta
+														type="number" max="{{prodotto.qtaProdotto}}" min="1"
+														[(ngModel)]="qtaScelta"
+														(blur)="controlloQta(scegliQta.value)"
+														[disabled]="disponibile(prodotto.qtaProdotto)">
+											</mat-form-field>
+										</td>
+									</tr>
+									<tr>
+										<td> <b>Disponibilità</b> </td>
+										<td> {{prodotto.qtaProdotto}} </td>
+									</tr>
+									<tr>
+										<td> <b>Aggiungi al carrello</b> </td>
+										<td>
+											<button mat-button
+													color="green"
+													[style.color]="prodotto.qtaProdotto>0 ? 'green' : 'red'"
+													matTooltip="Aggiungi al carrello"
+													(click)="aggiungiAlCarrello(prodotto)">
+												<mat-icon>shopping_cart</mat-icon>
+											</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<hr>
+							<div class="produttoreCategoria">
+								<table style="width: 100%; height: 100%">
+									<tr>
+										<td> <b>Produttore:</b> </td>
+										<td>{{nomeProduttore}}</td>
+									</tr>
+									<tr>
+										<td> <b>Categoria:</b> </td>
+										<td>{{nomeCategoria}}</td>
+									</tr>
+								</table>
+							</div>
+							<hr>
+							<div class="descrizione">	
+								<div style="width: 85%; margin: auto">
+									<h3>Descrizione</h3>
+									<p>{{prodotto.descrProdotto}}</p>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			
+		</div>
+		<hr>
+		<h2>Prodotti simili</h2>
+		<div class="spazioElementi">
+			<app-carousel style="margin: auto"></app-carousel>
+		</div>
+	</div>
+
+</div>
+
+<ng-template #elseBlock>
+	
+	<div style="text-align: center">
+		<p>prodotto non trovato</p>
+		<button mat-raised-button color="accent" (click)="goBack()">torna indietro</button>
+	</div>
+
+</ng-template>

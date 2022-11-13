@@ -1,0 +1,50 @@
+<div style="text-align: center">
+    <form name="modifica" (ngSubmit)="onSubmit()" #modifica = "ngForm">
+      <mat-form-field style="width:20%" appearance="outline">
+          <mat-label>Nome </mat-label>
+            <input matInput placeholder="Nome"[(ngModel)]="nome" name="nome" >
+      </mat-form-field>
+  
+      <mat-form-field style="width:20%" appearance="outline">
+          <mat-label>Cognome</mat-label>
+            <input matInput placeholder="Cognome" [(ngModel)]="cognome" name="cognome" >
+      </mat-form-field>
+      <br>
+  
+      <mat-form-field style="width:40%" appearance="outline">
+          <mat-label>Username</mat-label>
+            <input matInput placeholder="Username" [(ngModel)]="username" name="username" >
+      </mat-form-field>
+      <br>
+  
+      <mat-form-field style="width:40%" appearance="outline">
+          <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" [(ngModel)]="email" name="email" value="valorePrecedenteLogin" disabled>
+      </mat-form-field>
+      <br>
+  
+      <mat-form-field style="width:10%" appearance="outline">
+          <mat-label>Città</mat-label>
+          <input matInput placeholder="Città" [(ngModel)]="citta" name="citta" value="valorePrecedenteLogin">
+      </mat-form-field>
+    
+      <mat-form-field style="width:10%" appearance="outline">
+          <mat-label>Via</mat-label>
+          <input matInput placeholder="Via" [(ngModel)]="indirizzo" name="indirizzo">
+      </mat-form-field>
+    
+      <mat-form-field style="width:10%" appearance="outline">
+          <mat-label>Numero civico</mat-label>
+          <input matInput placeholder="Numero civico" [(ngModel)]="nCivico" name="nCivico">
+      </mat-form-field>
+    
+      <mat-form-field style="width:10%" appearance="outline">
+          <mat-label>CAP</mat-label>
+          <input matInput placeholder="CAP" [(ngModel)]="cap" name="cap">
+      </mat-form-field>
+      <br>
+  
+      <a routerLink="/profilo"><button type="submit" mat-raised-button name="salva" color="primary">salva</button></a>
+  
+    </form>
+  </div>

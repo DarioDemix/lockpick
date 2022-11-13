@@ -1,0 +1,77 @@
+<div class="contenitoreComponente">
+	<div *ngIf="!isLogged">
+
+		<h2>Non hai effettuato il login. Accedi per visualizzare lo storico.</h2>
+		<a>
+			<button mat-raised-button color="primary" routerLink="/login">Accedi</button>
+		</a>
+
+	</div>
+
+	<div *ngIf="isLogged">
+
+		<div *ngIf="isVuoto">
+
+			<h2>Non hai effettuato ordini. Rimedia subito!</h2>
+			<button mat-raised-button color="primary" routerLink="/homepage">Homepage</button>
+
+		</div>
+
+		<div *ngIf="!isVuoto">
+			<div class="contenitoreElementi">
+				<h2>Storico ordini</h2>
+			
+				<div *ngFor="let ordinex of storico" class="spazioElementi">
+
+								<h2 class="scritteH">Ordine n.{{ordinex[0].idOrdine}} del {{ordinex[0].dataOrdine | date: 'd MMM y, ore HH.mm'}}</h2>
+						<div class="contenitoreTabella">
+							
+							<table class="tabellaOrdine">
+								
+								<tr>
+										<th></th>
+										<th>Nome</th>
+										<th>Quantità</th>
+										<th>Prezzo</th>
+								</tr>
+								
+								<tr *ngFor="let voce of ordinex">
+										<th class="contenitoreFoto">
+												<img (click)="goToDetail(voce.idCatalogo)" class="fotoLabel" src="data:image/png;base64,{{voce.img}}">
+										</th>
+										<th><p (click)="goToDetail(voce.idCatalogo)">{{voce.nomeProdotto}}</p></th>
+										<th><p>{{voce.qtaOrdinata}}</p></th>
+										<th><p>{{voce.prezzoPagato | number:'1.2-5'}}€</p></th>
+								</tr>
+
+								<tr class="totaleOrdine">
+									<td colspan="3"></td>
+									<td>
+										<b>Totale {{getTotaleOrdine(ordinex) | number:'1.2-5'}}€</b>
+									</td>
+								</tr>
+
+							</table>
+						</div>
+						<hr>
+				</div>
+				<div *ngIf="!finished">
+					<mat-spinner></mat-spinner>
+				</div>
+			</div>
+			<h3 *ngIf="finished">Totale ordini {{getTotaleDeiTotali() | number:'1.2-5'}}€</h3>
+			
+			<div *ngIf="finished">
+				<button mat-raised-button color="accent" (click)="topFunction()">Torna su</button>
+			</div>
+		</div>
+	
+		<div style="width: 60%; text-align: center"
+					infiniteScroll
+					[infiniteScrollDistance]="2"
+					[infiniteScrollThrottle]="1000"
+					(scrolled)="onScroll()">
+		</div>
+
+	</div>
+</div>

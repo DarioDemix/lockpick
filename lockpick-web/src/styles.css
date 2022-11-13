@@ -1,0 +1,52 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.bgimmagine {
+    background-image: url("assets/rockywall.png");
+    height: 100%;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+a{
+    text-decoration-line: none;
+}
+a:link a:visited {
+    text-decoration: none;
+    text-decoration-line: none;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+*{
+    font-family: 'Alegreya Sans SC';
+    font-size: 17px;
+}
+
+/*** css per tutti i component ***/
+.contenitoreComponente{
+    text-align: center;
+    width: 500px;
+    margin: auto
+}
+.contenitoreElementi{
+    text-align: center;
+    border: 2px rgb(150, 150, 150) solid;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 25px;
+}
+.spazioElementi{
+    padding:20px 30px;
+}
+mat-spinner{
+    margin: auto;
+    margin-bottom: 10px;
+}
+hr{
+    color: rgb(150, 150, 150);
+    width: 75%
+}

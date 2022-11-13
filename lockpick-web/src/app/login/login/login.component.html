@@ -1,0 +1,49 @@
+<div class="contenitoreComponente">
+
+    <div class="contenitoreElementi">
+        <h2>Login</h2>
+        <div class="spazioElementi">
+            <form name="login" (ngSubmit)="onSubmit()" #login="ngForm">
+            
+                <div layout="column" layout-align="center center">
+            
+                    <mat-form-field appearance="outline">
+                        <mat-label>Username o mail</mat-label>
+                            
+                            <input id="username" [(ngModel)]="loginUserData.username"
+                                name="username" matInput placeholder="Inserisci username o mail" required>
+
+                    </mat-form-field>
+                </div>
+                    <br>
+                <div layout="column" layout-align="center center">
+            
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                            
+                            <input id="password" [(ngModel)]="loginUserData.password" name="password"
+                                    matInput placeholder="Inserisci la password" [type]="hide ? 'text' : 'password'" required>
+
+                            <mat-icon matSuffix (click)="hide = !hide">
+                                {{hide ? 'visibility' : 'visibility_off'}}
+                            </mat-icon>
+
+                            <mat-hint>
+                                <a (click)="openDialog()">Recupero password</a>
+                            </mat-hint>
+                        
+                    </mat-form-field>
+                </div>
+                <br><br>
+                <div *ngIf="datiErrati">
+                    <h4>Dati errati</h4>
+                </div>
+                <button mat-raised-button color="primary" [disabled]="login.invalid"
+                          type="submit">Invia</button>
+                <div>
+                    <br>Non hai un account? <a routerLink="/registrazione"><b>Registrati </b></a>ora!
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

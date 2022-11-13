@@ -1,0 +1,42 @@
+<div class="contenitoreRecuperoPwd">
+
+	<div class="contenitoreFormRecuperoPwd">
+		<h2>Reset Password</h2>
+		<div class="contenitoreCampiRecuperoPwd">
+			<form [formGroup]="recuperoPsw">      
+				<mat-form-field appearance="outline">
+			<mat-label>Nuova Password</mat-label>
+			<input matInput
+					formControlName="password" 
+					[type]="!hide ? 'password' : 'text'"
+					required>
+			<mat-icon matSuffix (click)="hide = !hide">
+			{{!hide ? 'visibility_off' : 'visibility'}}
+			</mat-icon>
+			<mat-error *ngIf="campoVuoto(getPassword)">La passwsord è richiesta</mat-error>
+			<mat-error *ngIf="!campoVuoto(getPassword) && getPassword.invalid">La passwsord deve avere min. 8 caratteri</mat-error>
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>Conferma password</mat-label>
+			<input matInput 
+					type="password"
+					formControlName="confermaPassword"
+					required>
+					<mat-error *ngIf="getConfermaPassword.invalid && (getConfermaPassword.dirty || getConfermaPassword.touch)">
+						<mat-error *ngIf="campoVuoto(getConfermaPassword) && getConfermaPassword.errors['required']">La password è obbligatorio</mat-error>
+						<mat-error *ngIf="!campoVuoto(getConfermaPassword) && getConfermaPassword.errors['compare']">Le password non sono uguali</mat-error>
+					</mat-error>
+		</mat-form-field>
+
+					<div class="bottoneInvioForm">
+							<button mat-raised-button
+									color="primary"
+									(click)="onSubmit()"
+									[disabled]="recuperoPsw.invalid">Cambia password</button>
+					</div>
+			</form>
+		</div>
+	</div>
+
+</div>

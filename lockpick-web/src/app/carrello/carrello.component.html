@@ -1,0 +1,107 @@
+<div *ngIf="!isEmpty" class="contenitoreComponente">
+
+	<div class="contenitoreElementi">
+		<h2>Carrello</h2>
+		<div class="spazioElementi">
+			<table *ngIf="!isEmpty" mat-table [dataSource]="prodottiInCarrello">
+				<!-- colonna img prodotti nel carrello -->
+				<ng-container matColumnDef="immagine">
+					<th mat-header-cell *matHeaderCellDef>Immagine</th>
+					<td mat-cell *matCellDef="let prodottoCarrello">
+						<img src="{{prodottoCarrello.img}}" class="fotoLabel">
+						</td>
+					<td mat-footer-cell *matFooterCellDef></td>
+				</ng-container>
+
+				<!-- Colonna nome -->
+				<ng-container class="colonnaNome" matColumnDef="nome">
+					<th mat-header-cell *matHeaderCellDef>Nome</th>
+					<td mat-cell *matCellDef="let prodottoCarrello">
+						{{prodottoCarrello.nomeProdotto}}</td>
+					<td mat-footer-cell *matFooterCellDef>
+						<p style="text-align: right">
+							<b>Totale parziale: &ensp;</b>
+						</p>
+					</td>
+				</ng-container>
+			
+				<!-- Colonna prezzo -->
+				<ng-container matColumnDef="prezzo">
+					<th mat-header-cell *matHeaderCellDef>Prezzo</th>
+					<td mat-cell *matCellDef="let prodottoCarrello">
+						&ensp;€ {{prodottoCarrello.prezzoProdotto | number:'2.2-5'}}</td>
+					<td  mat-footer-cell *matFooterCellDef>
+						<p style="text-align:left">
+							<b>€ {{totParz | number:'2.2-5'}}</b>
+						</p>
+					</td>
+				</ng-container>
+
+				<!-- colonnna qta prodotti nel carrello -->
+				<ng-container matColumnDef="qta">
+					<th mat-header-cell *matHeaderCellDef>Quantità</th>
+					<td mat-cell *matCellDef="let prodottoCarrello">
+						<mat-form-field style="width:40px">
+							<input matInput (blur)="aggiornaTotali()"
+									(blur)="salvaCarrello(name.value, prodottoCarrello)" 
+									type="number" #name [(ngModel)]="prodottoCarrello.qtaOrdinata"
+									value="{{prodottoCarrello.qtaOrdinata}}" id="input" style="width:40px" 
+									min="1" max="{{prodottoCarrello.qtaProdotto}}"
+									required>
+						</mat-form-field>
+					</td>
+					<td  mat-footer-cell *matFooterCellDef>
+						<b>N. articoli: {{totaleArticoli}}</b>
+					</td>
+				</ng-container>
+
+				<!-- colonna per l'eliminazione prodotti -->
+				<ng-container matColumnDef="elimina">
+					<th mat-header-cell *matHeaderCellDef></th>
+					<td mat-cell *matCellDef="let prodottoCarrello">
+						<button mat-icon-button color="primary" 
+								(click)="deleteProdottoCarrello(prodottoCarrello)">
+							<mat-icon>clear</mat-icon>
+						</button>
+					</td>
+					<td mat-footer-cell *matFooterCellDef></td>
+				</ng-container>
+			
+				<tr mat-header-row *matHeaderRowDef="colonneTabella"></tr>
+				<tr mat-row *matRowDef="let row; columns: colonneTabella"></tr>
+				<tr mat-footer-row *matFooterRowDef="colonneTabella"></tr>
+			</table>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="bottoniFinali">
+		<!-- Bottoni per procedere al pagamento e tornare agli acquisti -->
+		<a mat-raised-button *ngIf="isLogged" color="accent" routerLink="/homepage">
+			<label *ngIf="!isEmpty && isLogged">
+				<b>Continua gli acquisti</b>
+			</label>
+			<label *ngIf="isEmpty && isLogged">
+				<b>Effettua un acquisto!</b>
+			</label>
+			<mat-icon>local_grocery_store</mat-icon>
+		</a>
+
+		<a *ngIf="!isEmpty" mat-raised-button color="primary" (click)="checkout()"
+			color="primary" routerLink="/carrello">
+			<label><b>Checkout</b></label> 
+			<mat-icon>payment</mat-icon>
+		</a>
+	</div>
+</div>
+	
+<div *ngIf="isEmpty">
+	<h2>Il carrello è vuoto!</h2>
+	<a mat-raised-button *ngIf="!isLogged" color="accent" routerLink="/login">
+		<label><b>Effettua il login per cominciare gli acquisti!</b></label>
+	</a>
+	<a mat-raised-button *ngIf="isLogged" color="accent" routerLink="/homepage">
+		<label><b>Continua con gli acquisti!</b></label>
+	</a>
+</div>

@@ -1,0 +1,106 @@
+<div class="catalogo">
+
+	<mat-grid-list rowHeight="430px" [cols]="breakpoint" (window:resize)="onResize($event)">
+		
+		<div *ngFor="let prodotto of prodotti">
+			<mat-grid-tile colspan="1" rowspan="1">
+				<div class="contenutoTile">
+					<mat-card tabindex="0" class="cardProdotto">
+						<div class="contenutoCard">
+							<mat-card-header>
+								<img mat-card-avatar 
+										src="data:image/png;base64,{{prodotto.img}}">
+								<mat-card-title *ngIf="daTroncare(prodotto.nomeProdotto);else elseBlock">
+									
+										<label 	class="titolo"
+												matTooltipPosition="above"
+												matTooltip="{{prodotto.nomeProdotto}}">
+												<b (click)="dettaglio(prodotto.idCatalogo)">{{prodotto.nomeProdotto.slice(0,17)}}...</b>
+										</label>
+
+								</mat-card-title>
+								<ng-template #elseBlock>
+									
+									<label 	class="titolo"
+											matTooltipPosition="above"
+											matTooltip="{{prodotto.nomeProdotto}}">
+											<b (click)="dettaglio(prodotto.idCatalogo)">{{prodotto.nomeProdotto}}</b>
+									</label>
+									
+								</ng-template>
+								
+							</mat-card-header>
+
+							<mat-card-content>
+								<a routerLink="/dettaglio/{{prodotto.idCatalogo}}">
+									<div class="contenitoreFoto">
+										<img mat-card-image 
+											src="data:image/png;base64,{{prodotto.img}}"
+											alt="Foto prodotto"
+											class="fotoLabel">
+									</div>
+								</a>
+								<label style="font-size: 20px">
+									<b>€ {{prodotto.prezzoProdotto | number:'1.2-5'}}</b>
+								</label>
+							</mat-card-content>
+
+							<mat-card-actions class="funzioniProdotto">
+			
+								<!--Bottone visualizzato solo se lo user è admin-->
+								<button *ngIf="this.sharedProvider.isAdmin()" mat-button
+												matTooltip="Cancella prodotto"
+												color="primary"
+												(click)="cancella(prodotto)">
+								<mat-icon>clear</mat-icon>
+								</button>
+
+								<!--Bottone visualizzato solo se lo user è admin-->
+								<button *ngIf="this.sharedProvider.isAdmin()" mat-button
+												matTooltip="Modifica prodotto"
+												color="primary"
+												(click)="modifica(prodotto)"
+												[routerLink]="['/inserisciProd']"
+												[queryParams]="{ type: 'edit'}">
+								<mat-icon>edit</mat-icon>
+								</button>
+								
+								<button mat-button
+										color="green"
+										[style.color]="prodotto.qtaProdotto>0 ? 'green' : 'red'"
+										matTooltip="Aggiungi al carrello"
+										(click)="aggiungiAlCarrello(prodotto)"
+										
+										type="submit">
+									<mat-icon>shopping_cart</mat-icon>
+								</button>
+
+							</mat-card-actions>
+						</div>
+					</mat-card>
+				</div>
+			</mat-grid-tile>
+		</div>
+		<h1 *ngIf="noProdotti">Non vi sono prodotti</h1>
+	</mat-grid-list>
+
+	<div *ngIf="primiProdotti && !finished" style="width: 60%; text-align: center"
+			infiniteScroll
+			[infiniteScrollDistance]="200"
+			[infiniteScrollThrottle]="2000"
+			(scrolled)="onScroll()">
+		</div>
+
+	<div *ngIf="!finished">
+
+		<mat-spinner></mat-spinner>
+		
+	</div>
+
+	<div *ngIf="finished">
+
+		<button mat-raised-button color="accent" (click)="topFunction()">Torna su</button>
+
+	</div>
+
+</div>

@@ -1,0 +1,78 @@
+<div style="text-align: center">
+	<div *ngIf="!isLogged">
+
+		<h2>Non hai effettuato il login. Accedi per visualizzare il tuo profilo</h2>
+
+		<a routerLink="/login">
+			<button mat-raised-button name="accedi" color="primary">Accedi</button>
+		</a>
+	
+	</div>
+
+	<div *ngIf="isLogged">
+		
+		<div class="contenitoreStorico">
+			
+			<div class="contenitoreAnagraficaProfilo">
+				<h2>Profilo</h2>
+				<div class="contenitoreCampiProfilo">		
+
+					<table>
+						<tr>
+							<td>Nome</td>
+							<td>{{datiUser.nome}}</td>
+						</tr>
+						
+						<tr>
+							<td>Cognome</td>
+							<td>{{datiUser.cognome}}</td>
+						</tr>
+					</table>
+						<hr>
+					<table>
+						<tr>
+							<td>
+								<mat-icon class="icona">build</mat-icon>							
+								Username
+							</td>
+							<td>
+								<label (click)="modificaUsername()">
+									{{datiUser.username}}
+								</label>
+							</td>
+						</tr>
+					</table>
+						<hr>
+					<table>
+						<tr>
+							<td>Email</td>
+							<td>{{datiUser.email}}</td>
+						</tr>
+					</table>
+						<hr>
+					<table>
+						<tr>
+							<td>
+								<mat-icon class="icona">build</mat-icon>Password
+							</td>
+							<td></td>
+						</tr>
+					</table>
+						<hr>
+					<table>
+						<tr>
+							<td>
+								<mat-icon class="icona">build</mat-icon>Indirizzo</td>
+							<td>
+								<label (click)="modificaIndirizzo()">
+									{{datiUser.indirizzo}} {{datiUser.numeroCivico}}, {{datiUser.citta}} {{datiUser.cap}}
+								</label>
+							</td>
+						</tr>					
+					</table>
+
+				</div>
+			</div>
+		</div>
+  	</div>
+</div>

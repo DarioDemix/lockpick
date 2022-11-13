@@ -1,0 +1,146 @@
+<div class="contenitoreComponente">
+	
+	<div class="contenitoreElementi">
+		<h2>Registrazione</h2>
+		<div class="spazioElementi">
+			<form [formGroup]="registrazione">
+			<h4>Anagrafica</h4>
+		
+				<mat-form-field appearance="outline"
+								class="doppioPerRiga">
+					<mat-label>Nome</mat-label>
+					<input matInput
+							type="text"
+							formControlName="nome"
+							required>
+					<mat-error *ngIf="getNome.invalid && campoVuoto(getNome)">Il nome è obbligatorio</mat-error>
+				</mat-form-field>
+		
+				<mat-form-field appearance="outline"
+								class="doppioPerRiga">
+					<mat-label>Cognome</mat-label>
+					<input matInput
+							type="text"
+							formControlName="cognome"
+							required>
+					<mat-error *ngIf="campoVuoto(getCognome)">Il cognome è obbligatorio</mat-error>
+				</mat-form-field>
+<br>
+				<mat-form-field appearance="outline"
+								class="unicoPerRiga">
+					<mat-label>Username</mat-label>
+					<input matInput
+							#username
+							(blur)="checkUsername(username.value)"
+							type="text"
+							formControlName="username"
+							required>
+					<mat-hint style="color: red" *ngIf="esisteUsername">Esiste già un account con questo username</mat-hint>
+					<mat-error *ngIf="campoVuoto(getUsername)">Lo username è obbligatorio</mat-error>
+				</mat-form-field>
+<hr>
+			<h4>Indirizzo email</h4>
+
+				<mat-form-field appearance="outline"
+								class="unicoPerRiga">
+					<mat-label>Indirizzo email</mat-label>
+					<input matInput
+							#email
+							(blur)="checkEmail(email.value)"
+							type="email"
+							formControlName="email"
+							required>
+					<mat-hint style="color: red" *ngIf="esisteEmail">Esiste già un account con questa email</mat-hint>
+					<mat-error *ngIf="campoVuoto(getEmail)">La email è obbligatoria</mat-error>
+					<mat-error *ngIf="getEmail.invalid">La email non è valida</mat-error>
+				</mat-form-field>
+				
+<hr>
+			<h4>Password</h4>
+
+				<mat-form-field appearance="outline"
+								class="doppioPerRiga">
+					<mat-label>Password</mat-label>
+					<input matInput
+							formControlName="password" 
+							[type]="hide ? 'password' : 'text'"
+							required>
+					<mat-icon matSuffix (click)="hide = !hide">
+					{{hide ? 'visibility_off' : 'visibility'}}
+					</mat-icon>
+					<mat-error *ngIf="campoVuoto(getPassword)">La passwsord è richiesta</mat-error>
+					<mat-error *ngIf="!campoVuoto(getPassword) && getPassword.invalid">La passwsord deve avere min. 8 caratteri</mat-error>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline"
+								class="doppioPerRiga">
+					<mat-label>Conferma password</mat-label>
+					<input matInput 
+							type="password"
+							formControlName="confermaPassword"
+							required>
+							<mat-error *ngIf="getConfermaPassword.invalid && (getConfermaPassword.dirty || getConfermaPassword.touch)">
+								<mat-error *ngIf="campoVuoto(getConfermaPassword) && getConfermaPassword.errors['required']">La password è obbligatorio</mat-error>
+								<mat-error *ngIf="!campoVuoto(getConfermaPassword) && getConfermaPassword.errors['compare']">Le password non sono uguali</mat-error>
+							</mat-error>
+				</mat-form-field>
+<hr>
+			<h4>Domicilio</h4>
+
+				<mat-form-field appearance="outline"
+								class="doppioPerRiga">
+					<mat-label>Citta</mat-label>
+					<input matInput
+							type="text"
+							formControlName="citta"
+							required>
+					<mat-error *ngIf="campoVuoto(getCitta)">La città è obbligatoria</mat-error>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline"
+								class="doppioPerRiga">
+					<mat-label>CAP</mat-label>
+					<input matInput
+							type="number"
+							formControlName="cap"
+							required>
+					<mat-error *ngIf="campoVuoto(getCap)">Il CAP è obbligatorio</mat-error>
+				</mat-form-field>
+<br>       
+				<mat-form-field appearance="outline"
+								class="doppioPerRiga">
+					<mat-label>Via</mat-label>
+					<input matInput
+							type="text"
+							formControlName="via"
+							required>
+					<mat-error *ngIf="campoVuoto(getVia)">La via è obbligatoria</mat-error>
+				</mat-form-field>
+				
+				<mat-form-field appearance="outline"
+								class="doppioPerRiga">
+					<mat-label>Numero civico</mat-label>
+					<input matInput
+							type="text"
+							formControlName="nCivico"
+							required>
+					<mat-error *ngIf="campoVuoto(getNCivico)">Il numero civico è obbligatorio</mat-error>
+				</mat-form-field>
+				<div *ngIf="esisteEmail || esisteUsername" class="bottoneInvioForm">
+					<button mat-raised-button
+							color="primary"
+							disabled>Registrati</button>
+				</div>
+				<div *ngIf="!esisteEmail && !esisteUsername" class="bottoneInvioForm">
+					<button mat-raised-button
+							color="primary"
+							(click)="onSubmit()"
+							[disabled]="registrazione.invalid">Registrati</button>
+				</div>
+				<div>
+						<br>Hai già un account? Effetua il <a routerLink="/login"><b>login</b></a>!
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

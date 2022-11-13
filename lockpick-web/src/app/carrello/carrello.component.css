@@ -1,0 +1,29 @@
+table {
+    min-width: -webkit-fill-available;
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+}
+.th .p{
+    padding: 10px;
+}
+th tr td{
+    text-align: center;
+}
+.totaleOrdine{
+    background-color: rgba(255,255,255,0) !important;
+}
+.fotoLabel{
+    border-radius: 20px;
+    margin: auto;
+    padding: 10px;
+    max-width: 100%;
+    max-height: 142px;
+    min-height: 130px;
+}
+/*
+    width maggiorata
+*/
+.contenitoreComponente{
+    width: 650px;
+}

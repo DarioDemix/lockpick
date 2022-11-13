@@ -1,0 +1,46 @@
+<div class="slideshow">
+
+    <table>
+        <tr>
+            <td class="frecce">
+                <mat-icon *ngIf="prodottiPrima" (click)="prodottiPrecedenti()">keyboard_arrow_left</mat-icon>
+            </td>
+            
+            <td *ngFor="let prodotto of prodottiSimili">
+                <a routerLink="/dettaglio/{{prodotto.idCatalogo}}">
+                    <img src="data:image/png;base64,{{prodotto.img}}">
+                </a>
+            </td>
+
+            <td class="frecce">
+                <mat-icon *ngIf="prodottiDopo"(click)="prodottiSuccessivi()">keyboard_arrow_right</mat-icon>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+            </td>
+
+            <td *ngFor="let prodotto of prodottiSimili">
+
+                    <span *ngIf="daTroncare(prodotto.nomeProdotto);else elseBlock"
+                            style="text-align: center">
+                        {{prodotto.nomeProdotto.slice(0,16)}}...
+                        <br>
+                        {{prodotto.prezzoProdotto}}€
+                    </span>
+
+                    <ng-template #elseBlock>
+                        {{prodotto.nomeProdotto}}
+                        <br>
+                        {{prodotto.prezzoProdotto}}€
+                    </ng-template>
+            </td>
+
+            <td>
+            </td>
+        </tr>
+    </table>
+
+</div>
+    

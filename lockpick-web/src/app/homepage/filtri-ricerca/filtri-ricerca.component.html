@@ -1,0 +1,47 @@
+<div class="filtri-ricerca">
+	<mat-expansion-panel [disabled]="isDisabled">
+
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				<b>Filtri ricerca</b>
+			</mat-panel-title>
+
+			<!-- <mat-panel-description>
+			</mat-panel-description> -->
+
+		</mat-expansion-panel-header>
+			<div class="contenitoreFiltro">
+				<ng5-slider [(value)]="prezzoMinimo" [(highValue)]="prezzoMassimo"
+							[options]="options"></ng5-slider>
+			</div>
+			<br>
+			<div class="contenitoreFiltro">
+			<!-- Scelta produttore-->
+			<mat-form-field>
+					<mat-label>Scegli un produttore</mat-label>
+					<mat-select [(value)]="selectedProd" disableRipple>
+						<mat-option (click)="setProd(0)">Vuoto</mat-option>
+						<mat-option *ngFor="let produttore of produttori" (click)="setProd(produttore.idProduttore)" value="produttore">
+							{{produttore.nomeProduttore}}
+						</mat-option>
+					</mat-select>
+					</mat-form-field>
+			<!--Scelta categoria-->
+			<mat-form-field>
+					<mat-label>Scegli una categoria</mat-label>
+					<mat-select [(value)]="selectedCat" disableRipple>
+						<mat-option (click)="setCat(0)">Vuoto</mat-option>
+						<mat-option *ngFor="let categoria of categorie" (click)="setCat(categoria.idCategoria)" value="categoria">
+							{{categoria.nomeCategoria}}
+						</mat-option>
+					</mat-select>
+			</mat-form-field>
+
+			</div>
+
+		<mat-action-row>
+			<button mat-raised-button color="primary" (click)="cerca()">Cerca!</button>
+		</mat-action-row>
+
+	</mat-expansion-panel>
+</div>

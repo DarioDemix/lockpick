@@ -1,0 +1,141 @@
+<div *ngIf="!isAdmin">
+  <h2>Non hai i permessi per visualizzare questa pagina.</h2>
+  <br>
+  <a routerLink="/homepage"><button mat-raised-button color="primary">Vai alla homepage</button></a>
+</div>
+
+<div *ngIf="isAdmin" class="contenitoreInserisciProdotto">
+       
+    <div class="contenitoreFormInserisciProdotto">
+        <h3 *ngIf="!this.sharedProvider.getProdotto()">Inserisci prodotto</h3>
+        <h3 *ngIf="this.sharedProvider.getProdotto()">Modifica prodotto</h3>
+        <div class="contenitoreCampiInserisciProdotto">
+          <form name="catalogo" #catalogo = "ngForm">
+
+            <mat-form-field appearance="outline"
+                            class="unicoPerRiga">
+                <mat-label>Nome prodotto</mat-label>
+                    <input  matInput placeholder="Inserisci il nome" name="nomeProdotto"
+                            [(ngModel)]="prodottoData.nomeProdotto" required>
+            </mat-form-field>
+
+              <br>
+
+            <mat-form-field appearance="outline"
+                            class="doppioPerRiga">
+                <mat-label>Prezzo</mat-label>
+                  <input  matInput type="number" placeholder="Inserisci il prezzo"
+                          max="1000" min="0" name="prezzoProdotto"
+                          [(ngModel)]="prodottoData.prezzoProdotto" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline"
+                            class="doppioPerRiga">
+                <mat-label>Quantità</mat-label>
+                    <input  matInput type="number" placeholder="Inserisci la quantità"
+                            name="qtaProdotto" [(ngModel)]="prodottoData.qtaProdotto" required>
+            </mat-form-field>
+
+            <br>
+            <mat-form-field style="width: 80%;height: 110px;" appearance="outline">
+              <mat-label>Descrizione</mat-label>
+                  <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                            cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5" maxlength="250"
+                            placeholder="Inserisci la descrizione" name="descrProdotto" 
+                            [(ngModel)]="prodottoData.descrProdotto" required>
+                  </textarea>
+                </mat-form-field>
+            
+            <!--Opzione inserisci-->  
+            <mat-form-field *ngIf="!this.sharedProvider.getProdotto()" class="doppioPerRiga" appearance="outline" >
+                <mat-label>Produttore</mat-label>
+                    <input type="text" 
+                    placeholder="scegli produttore" 
+                    [matAutocomplete] = "prod"
+                    name="idProduttore"
+                    matInput>
+              <mat-autocomplete #prod="matAutocomplete" >
+                <mat-option *ngFor="let produttore of produttori" 
+                            value="{{produttore.nomeProduttore}}"
+                            (click)="setProduttore(produttore.idProduttore)">
+                  {{produttore.nomeProduttore}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field *ngIf="!this.sharedProvider.getProdotto()" class="doppioPerRiga" appearance="outline" >
+                <mat-label>Categoria</mat-label>
+                <input type="text" 
+                placeholder="scegli categoria" 
+                [matAutocomplete] = "categoria"
+                name="idCategoria"
+                matInput>
+          <mat-autocomplete #categoria="matAutocomplete">
+            <mat-option *ngFor="let categoria of categorie"
+                        value="{{categoria.nomeCategoria}}"
+                        (click)="setCategoria(categoria.idCategoria)">
+              {{categoria.nomeCategoria}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+          <!--Opzione modifica-->
+          <mat-form-field *ngIf="this.sharedProvider.getProdotto()" class="doppioPerRiga" appearance="outline" >
+              <mat-label>Produttore</mat-label>
+                  <input type="text" 
+                  placeholder="scegli produttore" 
+                  [matAutocomplete] = "prod"
+                  name="idProduttore"
+                  value="{{nomeProduttore}}"
+                  matInput>
+            <mat-autocomplete #prod="matAutocomplete" >
+              <mat-option *ngFor="let produttore of produttori" 
+                          value="{{produttore.nomeProduttore}}"
+                          (click)="setProduttore(produttore.idProduttore)">
+                {{produttore.nomeProduttore}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field *ngIf="this.sharedProvider.getProdotto()" class="doppioPerRiga" appearance="outline" >
+              <mat-label>Categoria</mat-label>
+              <input type="text" 
+              placeholder="scegli categoria" 
+              [matAutocomplete] = "categoria"
+              name="idCategoria"
+              value="{{nomeCategoria}}"
+              matInput>
+        <mat-autocomplete #categoria="matAutocomplete">
+          <mat-option *ngFor="let categoria of categorie"
+                      value="{{categoria.nomeCategoria}}"
+                      (click)="setCategoria(categoria.idCategoria)">
+            {{categoria.nomeCategoria}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+          <label class="contenitoreFoto">
+            <img  [src]="imageUrl"
+                  class="fotoLabel">
+            <br>
+            <label for="bottoneScegli">Scegli un'immagine</label>
+            <br>
+            <input id="bottoneScegli" type="file" accept="image/*" (change)="onFileSelected($event)">
+          </label>
+          <div class="imageDisplay">
+          </div>
+          <br>
+          <button *ngIf="!this.sharedProvider.getProdotto()" mat-raised-button color="primary"
+                  [disabled]="catalogo.invalid"
+                  (click)="onSubmit()" (click)="catalogo.reset()">
+            Invia
+          </button>
+
+          <button *ngIf="this.sharedProvider.getProdotto()" mat-raised-button color="primary"
+                  [disabled]="catalogo.invalid"
+                  (click)="modificaProdotto()" (click)="catalogo.reset()">
+            Modifica
+          </button>
+        </form>
+        <button mat-raised-button color="accent" (click)="goBack()">torna indietro</button>
+    </div>
+  </div>
+</div>

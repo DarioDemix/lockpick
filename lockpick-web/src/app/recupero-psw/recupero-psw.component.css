@@ -1,0 +1,17 @@
+mat-form-field{
+    width: 80%;
+}
+.contenitoreRecuperoPwd{
+    text-align: center;
+    width: 500px;
+    margin: auto;
+}
+.contenitoreFormRecuperoPwd{
+    text-align: center;
+    border: 1px #ddd solid;
+    border-radius: 5px;
+    position: relative;
+}
+.contenitoreCampiRecuperoPwd{
+    padding:20px 30px;
+}

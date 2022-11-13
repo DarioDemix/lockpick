@@ -1,0 +1,15 @@
+.footer {
+    position: absolute;
+    position: static;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+    flex: 1;
+    z-index: 0;
+}
+.ringraziamenti{
+    font-size:13px;
+}

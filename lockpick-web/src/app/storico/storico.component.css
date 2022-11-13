@@ -1,0 +1,6 @@
+::ng-deep table.mat-table {
+    min-width: -webkit-fill-available;
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+}

@@ -1,0 +1,38 @@
+.slideshow{
+    margin: auto;
+    width: 80%;
+}
+
+/*      frecce      */
+mat-icon{
+    transform: scale(1.5);
+    opacity: 0.25;
+}
+mat-icon:hover{
+    opacity: unset;
+    cursor: pointer;
+}
+.frecce{
+    width: 5%;
+}
+
+/*      immagine    */
+img{
+    border-radius: 10px;
+    max-height: 200px;
+}
+img:hover{
+    opacity: 0.75;
+    cursor: pointer;
+}
+
+/*      tabella slider      */
+table{
+    height: 100%;
+    margin: auto;
+}
+td{
+    border-radius: 10px;
+    max-height: 200px;
+    min-height: 200px;
+}

@@ -1,0 +1,31 @@
+.contenitoreStorico{
+    text-align: center;
+    width: 500px;
+    margin: auto;
+}
+.contenitoreAnagraficaProfilo{
+    text-align: center;
+    border: 2px rgb(150, 150, 150) solid;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 25px;
+}
+.contenitoreCampiProfilo{
+    padding:20px 30px;
+}
+tr{
+    width: 100%;
+}
+td{
+    width:50%;
+}
+table{
+    width: -webkit-fill-available;
+    text-align: center;
+}
+.icona{
+    position: absolute;
+    left: 30px;
+    z-index: -1;
+    transform: scale(0.75);
+}

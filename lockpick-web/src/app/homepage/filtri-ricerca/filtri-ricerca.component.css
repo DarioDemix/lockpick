@@ -1,0 +1,11 @@
+.filtri-ricerca{
+    width: 75%;
+    margin: auto;
+}
+.contenitoreFiltro{
+    margin: auto;
+    width: 75%
+}
+::ng-deep .custom-slider .ng5-slider .ng5-slider-selection {
+    background: rgb(158, 14, 14) !important;
+  }

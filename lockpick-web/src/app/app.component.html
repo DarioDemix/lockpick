@@ -1,0 +1,160 @@
+<div class="contenitorePagina">
+  <div class="contenitorePaginaCaricata">
+    
+  <!-- toolbar contente la scelta ad icone per AreaUtente e Carrello -->
+    <div class="menu">
+      <mat-toolbar color="accent" >
+        <mat-toolbar-row>
+
+			<span style="width: 100px; text-align: left">
+				<!-- titolo/logo sito ,unico punto di accesso alla homepage tramite link -->
+				<h1 class="titolo">
+					<mat-label (click)="goToHomepage()" class="titoloLockpick" color="accent">{{title}}</mat-label>
+				</h1>
+			</span>
+
+			<!-- barra di ricerca -->
+			<span style="flex: 1">
+				<mat-form-field floatLabel="never" style="text-align: center">
+					<input matInput #ricerca (input)="ricercaProdotto(ricerca.value)"
+							type="text" placeholder="cerca..."
+							[matAutocomplete]="auto"
+							(keyup.enter)="cercaProdotti(ricerca.value)">
+				</mat-form-field>
+				<label class="lenteIngrandimento" style="vertical-align: auto">
+					<a style="cursor:pointer;" (click)="cercaProdotti(ricerca.value)">
+						<mat-icon style="vertical-align: middle">search</mat-icon>
+					</a>
+				</label>
+				<mat-autocomplete #auto="matAutocomplete">				
+					<mat-option *ngFor="let prodotto of risultati" 
+								style="cursor: pointer"
+								(onSelectionChange)="navigaDettaglio(prodotto.idCatalogo)"
+								(click)="navigaDettaglio(prodotto.idCatalogo)" 
+								matTooltipPosition="right" 
+								matTooltip="{{prodotto.nomeProdotto}}">
+						<b>{{prodotto.nomeProdotto}}</b>
+					</mat-option>
+				</mat-autocomplete>
+			</span>
+
+			<span style="width: 100px; text-align: right">
+
+				<button mat-icon-button
+						[matMenuTriggerFor]="areautente"
+						id ="areaUtente">
+					<mat-icon class="esterne">account_circle</mat-icon>
+				</button>    
+
+				<mat-menu #areautente="matMenu">
+					<a routerLink="/profilo">
+						<button *ngIf="userLoggato()" mat-menu-item>
+							<mat-icon class="icone">perm_identity</mat-icon>
+							<span *ngIf="!userLoggato()">Profilo</span>
+							
+							<label *ngIf="userLoggato()">
+								{{user.username}}
+							</label>
+						</button>
+					</a>
+					
+					<a *ngIf="!userLoggato()" routerLink="/login">
+						<button mat-menu-item >
+							<mat-icon class="icone">input</mat-icon>
+							<span>Login</span>
+						</button>
+					</a>
+						
+					<a *ngIf="!userLoggato()" routerLink="/registrazione">
+						<button mat-menu-item>
+							<mat-icon class="icone">ballot</mat-icon>
+							<span>Registrazione</span>
+						</button>
+					</a>
+					
+					<a routerLink="/storico">
+						<button mat-menu-item>
+							<mat-icon class="icone">assignment</mat-icon>
+							<span>Storico</span>
+						</button>
+					</a>
+					
+				<!-- bottone che viene visualizzato solo se lo user è loggato -->
+					<button mat-menu-item
+							*ngIf="userLoggato()"
+							(click)="logout()">
+						<mat-icon class="icone">exit_to_app</mat-icon>
+						<span>Logout</span>
+					</button>
+
+					<!-- bottone disponibile solo agli admin che serve per inserire prodotti -->
+					<a *ngIf="isAdmin() && userLoggato()"
+						[routerLink]="['/inserisciProd']" 
+						[queryParams]="{ type: 'insert' }">
+						<button mat-menu-item >
+							<mat-icon class="interne">add_circle_outline</mat-icon>
+							<span>Inserisci prodotto</span>
+						</button>
+					</a>
+
+				</mat-menu>
+
+				<!-- Il numero sul matBadge è il totale articoli in carrello -->
+				<button mat-icon-button 
+						*ngIf="userLoggato()"
+						[matMenuTriggerFor]="carrello">
+					<mat-icon matBadge="{{totArticoliCarrello()}}"
+								matBadgeColor="warn"
+								class="icone">
+						shopping_cart
+					</mat-icon>
+				</button>
+
+				<button routerLink="/carrello"
+						*ngIf="!userLoggato()"
+						mat-icon-button>
+					<mat-icon>shopping_cart</mat-icon>
+				</button>
+					
+				<mat-menu #carrello="matMenu">
+					<a routerLink="/carrello">
+						<button mat-menu-item>
+							<mat-icon class="icone">euro</mat-icon>
+							<span>
+								<b style="font-size: 20px">{{totParzialeCarrello() | number:'1.2-5'}}</b>
+							</span>  <!-- aggiungere il vero prezzo da pagare calcolato -->
+						</button>
+					</a>
+				</mat-menu>
+			</span>
+		</mat-toolbar-row>
+
+		</mat-toolbar>
+		</div>
+		<!-- animazione di caricamento pagine -->
+		<div [hidden]="!loading" class="loader">
+			
+		<h2>
+			<mat-progress-bar *ngIf="loading"
+								color="warm"
+								mode="indeterminate">
+			</mat-progress-bar>
+			loading...
+		</h2>
+
+		</div>
+	</div>
+	
+		<!-- tag che reindirizza la pagina in base al routerLink cliccato -->
+		<div [hidden]="loading">
+		
+		<div class="contenitoreComponenti">
+			<router-outlet></router-outlet>
+		</div>
+
+		</div>
+	<br>
+	<!--
+		<app-footer></app-footer>
+	-->
+</div>
